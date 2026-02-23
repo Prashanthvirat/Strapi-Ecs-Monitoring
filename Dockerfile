@@ -1,24 +1,37 @@
-FROM node:18-alpine
+# ---------- BUILD STAGE ----------
+FROM node:20-alpine AS builder
 
-# Installing necessary build tools for Strapi and Sharp
-RUN apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev > /dev/null 2>&1
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
+    gcc \
+    autoconf \
+    automake \
+    zlib-dev \
+    libpng-dev \
+    vips-dev
 
 WORKDIR /opt/app
 
-# Copy package files
 COPY package*.json ./
-
-# Run install with clean slate
 RUN npm install
 
-# Copy source code
 COPY . .
-
-# Build Strapi
 RUN npm run build
 
-# Expose port (Instruction: 1337)
+
+# ---------- PRODUCTION STAGE ----------
+FROM node:20-alpine
+
+WORKDIR /opt/app
+
+# Install only runtime dependency for sharp
+RUN apk add --no-cache vips-dev
+
+COPY --from=builder /opt/app ./
+
+ENV NODE_ENV=production
+
 EXPOSE 1337
 
-# Start Strapi
 CMD ["npm", "run", "start"]
