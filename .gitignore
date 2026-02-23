@@ -1,34 +1,35 @@
-# --- Terraform Files ---
-# Local terraform directory (contains providers and plugins)
-.terraform/
-# Terraform binaries
-terraform.exe
-# Local state files
-*.tfstate
-*.tfstate.backup
-# Lock file
-.terraform.lock.hcl
-# Crash logs
-crash.log
+# Git
+.git
+.gitignore
 
-# --- Credentials & Secrets ---
-# Never push your AWS keys or secrets
+# Node
+node_modules
+npm-debug.log
+
+# Env
 .env
-*.pem
-aws_creds.txt
-.aws/credentials
+.env.*
 
-# --- Node.js / Strapi Files ---
-node_modules/
-build/
-.tmp/
-.cache/
+# OS files
 .DS_Store
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# --- Operating System Files ---
 Thumbs.db
-ehthumbs.db
-Desktop.ini
+
+# Logs
+*.log
+
+# Build artifacts (Docker will build fresh)
+dist
+build
+
+# IDE
+.idea
+.vscode
+
+# Tests
+coverage
+
+# Strapi
+.strapi
+exports
+.strapi-updater.json
+.strapi-cloud.json
