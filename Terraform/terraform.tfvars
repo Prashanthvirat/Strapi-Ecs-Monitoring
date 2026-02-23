@@ -1,0 +1,1 @@
+ecs_task_execution_role = "arn:aws:iam::778265708016:role/ecsTaskExecutionRole"
